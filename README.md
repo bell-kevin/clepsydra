@@ -2,7 +2,7 @@
 
 # Clepsydra
 
-https://aquiferpumpingtest.org
+https://aquiferpumpingtest.org/
 
 Clepsydra - the water clock
 
@@ -83,7 +83,7 @@ no standing with anyone.
 
 ## Verification
 
-`npm run test` runs 74 tests. The ones that matter:
+`npm run test` runs 76 tests. The ones that matter:
 
 **The well function is checked three independent ways.** Against reference
 values of the exponential integral computed with mpmath at 25 decimal digits
@@ -138,6 +138,16 @@ anything:
    values now come from mpmath rather than from a printed table, and the
    tolerance was tightened rather than loosened.
 4. **A screen reader would have announced "Transmissivity NaN."**
+5. **The type curve drew straight out of the bottom of the plot and over the
+   axis labels.** Theis drawdown tends to zero as time tends to zero, so on log
+   paper the curve descends without limit and there was no clip region. Reported
+   from a screenshot of the deployed site, not caught here — my own rasterised
+   images showed it and I did not see it. There is now a clip on the ruled
+   rectangle, a test asserting the clip covers exactly that rectangle, and a
+   second test asserting the curve genuinely does run past the edge so the clip
+   is not decorative.
+6. **A number input collapsed to nothing but its spinner arrows**, squeezed out
+   by a unit label that took its content width while the input had no minimum.
 
 ### What could not be tested here
 
@@ -222,7 +232,7 @@ same-sign residuals — means the wrong model, not noisy data.
 ```
 npm install
 npm run dev      # development server
-npm run test     # 74 tests
+npm run test     # 76 tests
 npm run build    # static output in dist/
 ```
 
@@ -237,6 +247,7 @@ GNU Affero General Public License v3.0 only. See `LICENSE`.
 
 The AGPL is deliberate: if you run a modified version of this as a network
 service, the people using it are entitled to your source.
+
 
 
 --------------------------------------------------------------------------------------------------------------------------
